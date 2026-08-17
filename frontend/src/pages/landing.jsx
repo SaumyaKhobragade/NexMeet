@@ -4,7 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import Logo from '../assets/logo.png';
 import HeroImage from '../assets/hero.png';
 
-export default function landing() {
+export default function LandingPage() {
     const navigate = useNavigate();
 
     return (
@@ -16,7 +16,9 @@ export default function landing() {
                 <div className="navlist">
                     <p onClick={() => navigate('/aljk23')}>Join as Guest</p>
                     <p onClick={() => navigate('/auth')}>Login</p>
-                    <p onClick={() => navigate('/auth')}>Sign Up</p>
+                    <div role="button" onClick={() => navigate('/auth')}>
+                        <p>Sign Up</p>
+                    </div>
                 </div>
             </nav>
 
