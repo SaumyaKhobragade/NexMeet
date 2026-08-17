@@ -1,15 +1,13 @@
 import * as React from 'react';
-import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
-import Grid from '@mui/material/Grid';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { AuthContext } from '../contexts/authContext';
 import { Snackbar } from '@mui/material';
+import Logo from '../assets/logo.png';
+import authIllustration from '../assets/background_2.jpg';
 
 const defaultTheme = createTheme();
 
@@ -54,58 +52,112 @@ export default function Authentication() {
 
     return (
         <ThemeProvider theme={defaultTheme}>
-            <Grid container component="main" sx={{ height: '100vh' }}>
+            <Box
+                component="main"
+                sx={{
+                    minHeight: '100vh',
+                    background: '#edf3fb',
+                    display: 'flex',
+                    flexDirection: 'row',
+                    width: '100%',
+                    '@media (max-width: 900px)': {
+                        flexDirection: 'column',
+                    },
+                }}
+            >
                 <CssBaseline />
-                <Grid
-                    item
-                    xs={false}
-                    sm={4}
-                    md={7}
+
+                <Box
                     sx={{
-                        backgroundImage: 'url(https://images.unsplash.com/photo-1669295384050-a1d4357bd1d7?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D)',
-                        backgroundRepeat: 'no-repeat',
-                        backgroundColor: (t) =>
-                            t.palette.mode === 'light' ? t.palette.grey[50] : t.palette.grey[900],
-                        backgroundSize: 'cover',
-                        backgroundPosition: 'center',
+                        background: 'linear-gradient(180deg, rgba(245,247,251,0.96) 0%, rgba(234,240,255,0.94) 100%)',
+                        p: { xs: 3, sm: 4 },
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        backdropFilter: 'blur(12px)',
+                        borderRight: '1px solid rgba(79, 90, 160, 0.12)',
+                        width: '38%',
+                        minHeight: '100vh',
+                        order: 1,
+                        '@media (max-width: 900px)': {
+                            width: '100%',
+                            minHeight: 'auto',
+                            borderRight: 'none',
+                        },
                     }}
-                />
-                <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
-                    <Box
-                        sx={{
-                            my: 8,
-                            mx: 4,
-                            display: 'flex',
-                            flexDirection: 'column',
-                            alignItems: 'center',
-                        }}
-                    >
-                        <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-                            <LockOutlinedIcon />
-                        </Avatar>
+                >
+                    <Box sx={{ width: '100%', maxWidth: 360, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                        <Box sx={{ width: '100%', display: 'flex', justifyContent: 'center', mb: 3.5 }}>
+                            <Box
+                                component="img"
+                                src={Logo}
+                                alt="NexMeet logo"
+                                sx={{ width: '100%', maxWidth: 180, borderRadius: 2 }}
+                            />
+                        </Box>
 
-
-                        <div>
-                            <Button variant={formState === 0 ? "contained" : ""} onClick={() => { setFormState(0) }}>
+                        <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: 1.25, mb: 3.5, background: 'rgba(255,255,255,0.5)', p: 0.8, borderRadius: 3, width: '80%', border: '1px solid rgba(122,136,255,0.15)', boxShadow: '0 10px 25px rgba(71, 85, 170, 0.08)' }}>
+                            <Button
+                                variant={formState === 0 ? 'contained' : 'text'}
+                                onClick={() => setFormState(0)}
+                                sx={{
+                                    borderRadius: 2,
+                                    px: 3,
+                                    py: 1.1,
+                                    minWidth: 118,
+                                    fontWeight: 800,
+                                    textTransform: 'uppercase',
+                                    letterSpacing: '0.04em',
+                                    fontSize: '0.78rem',
+                                    bgcolor: formState === 0 ? '#3a32f5' : 'transparent',
+                                    color: formState === 0 ? '#fff' : '#2d3748',
+                                    boxShadow: formState === 0 ? '0 10px 22px rgba(58, 50, 245, 0.24)' : 'none',
+                                    '&:hover': {
+                                        bgcolor: formState === 0 ? '#2f2ad8' : 'rgba(58,50,245,0.06)',
+                                    },
+                                }}
+                            >
                                 Sign In
                             </Button>
-                            <Button variant={formState === 1 ? "contained" : ""} onClick={() => { setFormState(1) }}>
+                            <Button
+                                variant={formState === 1 ? 'contained' : 'text'}
+                                onClick={() => setFormState(1)}
+                                sx={{
+                                    borderRadius: 2,
+                                    px: 3,
+                                    py: 1.1,
+                                    minWidth: 130,
+                                    fontWeight: 800,
+                                    textTransform: 'uppercase',
+                                    letterSpacing: '0.04em',
+                                    fontSize: '0.78rem',
+                                    bgcolor: formState === 1 ? '#3a32f5' : 'transparent',
+                                    color: formState === 1 ? '#fff' : '#2d3748',
+                                    boxShadow: formState === 1 ? '0 10px 22px rgba(58, 50, 245, 0.24)' : 'none',
+                                    '&:hover': {
+                                        bgcolor: formState === 1 ? '#2f2ad8' : 'rgba(58,50,245,0.06)',
+                                    },
+                                }}
+                            >
                                 Sign Up
                             </Button>
-                        </div>
+                        </Box>
 
-                        <Box component="form" noValidate sx={{ mt: 1 }}>
-                            {formState === 1 ? <TextField
-                                margin="normal"
-                                required
-                                fullWidth
-                                id="username"
-                                label="Full Name"
-                                name="username"
-                                value={name}
-                                autoFocus
-                                onChange={(e) => setName(e.target.value)}
-                            /> : <></>}
+                        <Box component="form" noValidate sx={{ mt: 0.8, width: '100%' }}>
+                            {formState === 1 && (
+                                <TextField
+                                    margin="normal"
+                                    required
+                                    fullWidth
+                                    id="full-name"
+                                    label="Full Name"
+                                    name="fullName"
+                                    value={name}
+                                    autoFocus
+                                    onChange={(e) => setName(e.target.value)}
+                                    sx={{ '& .MuiOutlinedInput-root': { borderRadius: 2, background: 'rgba(255,255,255,0.72)', borderColor: 'rgba(84, 86, 170, 0.18)', boxShadow: '0 10px 25px rgba(41, 60, 120, 0.04)' } }}
+                                />
+                            )}
 
                             <TextField
                                 margin="normal"
@@ -115,10 +167,11 @@ export default function Authentication() {
                                 label="Username"
                                 name="username"
                                 value={username}
-                                autoFocus
+                                autoFocus={formState === 0}
                                 onChange={(e) => setUsername(e.target.value)}
-
+                                sx={{ '& .MuiOutlinedInput-root': { borderRadius: 2, background: 'rgba(255,255,255,0.72)', borderColor: 'rgba(84, 86, 170, 0.18)', boxShadow: '0 10px 25px rgba(41, 60, 120, 0.04)' } }}
                             />
+
                             <TextField
                                 margin="normal"
                                 required
@@ -128,26 +181,131 @@ export default function Authentication() {
                                 value={password}
                                 type="password"
                                 onChange={(e) => setPassword(e.target.value)}
-
                                 id="password"
+                                sx={{ '& .MuiOutlinedInput-root': { borderRadius: 2, background: 'rgba(255,255,255,0.72)', borderColor: 'rgba(84, 86, 170, 0.18)', boxShadow: '0 10px 25px rgba(41, 60, 120, 0.04)' } }}
                             />
 
-                            <p style={{ color: "red" }}>{error}</p>
+                            {error && (
+                                <Box component="p" sx={{ mt: 2, color: '#d32f2f', fontSize: '0.95rem', minHeight: 20, fontWeight: 500 }}>
+                                    {error}
+                                </Box>
+                            )}
 
                             <Button
                                 type="button"
                                 fullWidth
                                 variant="contained"
-                                sx={{ mt: 3, mb: 2 }}
+                                sx={{
+                                    mt: 3,
+                                    py: 1.6,
+                                    borderRadius: 2,
+                                    background: 'linear-gradient(135deg, #3a32f5 0%, #5f5ef1 100%)',
+                                    fontWeight: 800,
+                                    textTransform: 'none',
+                                    fontSize: '1.05rem',
+                                    boxShadow: '0 16px 28px rgba(58, 50, 245, 0.22)',
+                                    '&:hover': {
+                                        background: 'linear-gradient(135deg, #2f2ad8 0%, #4c4ce8 100%)',
+                                    },
+                                }}
                                 onClick={handleAuth}
                             >
-                                {formState === 0 ? "Login " : "Register"}
+                                {formState === 0 ? 'Login' : 'Register'}
                             </Button>
-
                         </Box>
                     </Box>
-                </Grid>
-            </Grid>
+                </Box>
+
+                <Box
+                    sx={{
+                        position: 'relative',
+                        backgroundImage: `url(${authIllustration})`,
+                        backgroundSize: 'cover',
+                        backgroundPosition: 'center',
+                        minHeight: '100vh',
+                        overflow: 'hidden',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        width: '62%',
+                        order: 2,
+                        '@media (max-width: 900px)': {
+                            width: '100%',
+                            minHeight: 380,
+                        },
+                    }}
+                >
+                    <Box
+                        sx={{
+                            position: 'absolute',
+                            inset: 0,
+                            background: 'linear-gradient(120deg, rgba(5, 10, 35, 0.15) 0%, rgba(44, 62, 147, 0.18) 100%)',
+                            backdropFilter: 'blur(3px)',
+                        }}
+                    />
+
+                    <Box
+                        sx={{
+                            position: 'relative',
+                            zIndex: 1,
+                            color: '#fff',
+                            textAlign: 'center',
+                            px: 4,
+                            maxWidth: 760,
+                            width: '100%',
+                            display: 'flex',
+                            flexDirection: 'column',
+                            alignItems: 'center',
+                        }}
+                    >
+                        <Box
+                            component="span"
+                            sx={{
+                                display: 'inline-block',
+                                px: 2.2,
+                                py: 0.8,
+                                borderRadius: 999,
+                                background: 'rgba(255,255,255,0.12)',
+                                border: '1px solid rgba(255,255,255,0.18)',
+                                fontSize: '0.8rem',
+                                letterSpacing: '0.18em',
+                                textTransform: 'uppercase',
+                                mb: 2.2,
+                                fontWeight: 700,
+                            }}
+                        >
+                            Smart meetings
+                        </Box>
+
+                        <Box
+                            component="h2"
+                            sx={{
+                                fontSize: { xs: '2rem', sm: '2.5rem', md: '3.25rem' },
+                                lineHeight: 1.1,
+                                fontWeight: 800,
+                                mb: 1.5,
+                                textShadow: '0 10px 26px rgba(0,0,0,0.28)',
+                            }}
+                        >
+                            Meet people, share ideas, and launch instantly.
+                        </Box>
+
+                        <Box
+                            component="p"
+                            sx={{
+                                fontSize: { xs: '0.98rem', md: '1.1rem' },
+                                lineHeight: 1.7,
+                                color: 'rgba(255,255,255,0.88)',
+                                maxWidth: 520,
+                                mx: 'auto',
+                                textShadow: '0 4px 18px rgba(0,0,0,0.25)',
+                            }}
+                        >
+                            Connect effortlessly, collaborate in real time, and keep every conversation moving with NexMeet.
+                        </Box>
+                    </Box>
+                </Box>
+            </Box>
 
             <Snackbar
                 open={open}
@@ -155,7 +313,6 @@ export default function Authentication() {
                 message={message}
                 onClose={() => setOpen(false)}
             />
-
         </ThemeProvider>
-    )
+    );
 }
