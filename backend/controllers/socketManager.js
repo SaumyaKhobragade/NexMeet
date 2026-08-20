@@ -84,7 +84,7 @@ export const connectToSocket = (server) => {
 
         socket.on("disconnect", () => {
             const diffTime = Math.abs(new Date() - timeOnline[socket.id]);
-            const key = null;
+            let key = null;
 
             for (const [roomKey, roomValue] of JSON.parse(JSON.stringify(Object.entries(connections)))) {
                 for (let a = 0; a < roomValue.length; ++a) {
