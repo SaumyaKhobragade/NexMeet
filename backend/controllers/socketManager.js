@@ -24,8 +24,6 @@ export const connectToSocket = (server) => {
     };
 
     io.on("connection", (socket) => {
-        console.log("A user connected:", socket.id);
-
         socket.on("join-call", (path) => {
             if (!connections[path]) {
                 connections[path] = [];
@@ -57,7 +55,6 @@ export const connectToSocket = (server) => {
 
         socket.on("signal", (toId, message) => {
             io.to(toId).emit("signal", socket.id, message);
-            console.log("SIGNAL RECEIVED FROM:", socket.id, message);
         });
 
         socket.on("chat-message", (data, sender) => {
@@ -76,7 +73,6 @@ export const connectToSocket = (server) => {
 
                 connections[matchingRoom].forEach((id) => {
                     io.to(id).emit("chat-message", data, sender, socket.id);
-                    console.log("CHAT MESSAGE SENT TO:", id, data, sender, socket.id);
                 });
             }
         });
@@ -88,7 +84,6 @@ export const connectToSocket = (server) => {
                 // Notify remaining users before removing
                 for (let b = 0; b < connections[key].length; ++b) {
                     io.to(connections[key][b]).emit("user-left", socket.id);
-                    console.log("USER LEFT:", socket.id, "NOTIFYING:", connections[key][b]);
                 }
 
                 const index = connections[key].indexOf(socket.id);
