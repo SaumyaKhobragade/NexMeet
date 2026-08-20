@@ -1,5 +1,5 @@
 import httpStatus from "http-status";
-import bcrypt, { hash } from "bcrypt";
+import bcrypt from "bcrypt";
 import crypto from "crypto";
 
 import User from "../models/userModel.js";
@@ -9,7 +9,7 @@ const login = async (req, res) => {
     const { username, password } = req.body;
 
     if (!username || !password) {
-        return res.status(400).json({ message: "Please Provide" })
+        return res.status(400).json({ message: "Please provide username and password" })
     }
 
     try {
@@ -40,7 +40,7 @@ const register = async (req, res) => {
     try {
         const existingUser = await User.findOne({ username });
         if (existingUser) {
-            return res.status(httpStatus.FOUND).json({ message: "User already exists" });
+            return res.status(httpStatus.CONFLICT).json({ message: "User already exists" });
         }
 
         const hashedPassword = await bcrypt.hash(password, 10);
@@ -56,7 +56,7 @@ const register = async (req, res) => {
         res.status(httpStatus.CREATED).json({ message: "User Registered" })
 
     } catch (e) {
-        res.json({ message: `Something went wrong ${e}` })
+        res.status(httpStatus.INTERNAL_SERVER_ERROR).json({ message: `Something went wrong ${e}` })
     }
 }
 
@@ -69,12 +69,7 @@ const getUserHistory = async (req, res) => {
             return res.status(httpStatus.UNAUTHORIZED).json({ message: "Invalid token" });
         }
 
-        const meetings = await Meeting.find({
-            $or: [
-                { userId: user._id },
-                { user_id: user.username },
-            ],
-        }).sort({ date: -1 });
+        const meetings = await Meeting.find({ userId: user._id }).sort({ date: -1 });
 
         res.json(meetings)
     } catch (e) {

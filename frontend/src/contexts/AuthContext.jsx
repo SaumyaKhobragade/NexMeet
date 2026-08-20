@@ -1,6 +1,6 @@
 import axios from "axios";
 import httpStatus from "http-status";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import server from "../environment";
 import { AuthContext } from "./authContext";
@@ -59,23 +59,22 @@ export const AuthProvider = ({ children }) => {
         throw new Error(request.data.message || "Login failed.");
     }
 
-    const getHistoryOfUser = async () => {
+    const getHistoryOfUser = useCallback(async () => {
         let request = await client.get("/get_all_activity", {
             params: {
                 token: localStorage.getItem("token")
             }
         });
         return request.data
-    }
+    }, []);
 
-    const addToUserHistory = async (meetingCode) => {
+    const addToUserHistory = useCallback(async (meetingCode) => {
         let request = await client.post("/add_to_activity", {
             token: localStorage.getItem("token"),
             meeting_code: meetingCode
         });
         return request;
-    }
-
+    }, []);
 
     const data = {
         userData, setUserData, addToUserHistory, getHistoryOfUser, handleRegister, handleLogin

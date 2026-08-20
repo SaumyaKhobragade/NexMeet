@@ -26,8 +26,9 @@ export default function History() {
                 } else {
                     setMeetings([]);
                 }
-            } catch {
-                // IMPLEMENT SNACKBAR
+            } catch (err) {
+                console.error("Failed to fetch meeting history:", err);
+                // TODO: show error snackbar to user
             } finally {
                 setLoading(false);
             }

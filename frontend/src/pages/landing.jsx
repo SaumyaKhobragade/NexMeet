@@ -14,7 +14,6 @@ export default function LandingPage() {
                     <img src={Logo} alt="Logo" style={{ width: '8rem', height: 'auto' }} />
                 </div>
                 <div className="navlist">
-                    <p onClick={() => navigate('/aljk23')}>Join as Guest</p>
                     <p onClick={() => navigate('/auth')}>Login</p>
                     <div role="button" onClick={() => navigate('/auth')}>
                         <p>Sign Up</p>
