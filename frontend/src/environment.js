@@ -1,6 +1,6 @@
 let IS_PROD = true;
 const server = IS_PROD
-    ? "https://nexmeet-api.saumyakhobragade.dev"
+    ? import.meta.env.VITE_API_URL
     : "http://localhost:3000";
 
 export default server;
